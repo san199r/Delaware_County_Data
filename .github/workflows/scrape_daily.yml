@@ -37,11 +37,3 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: |
           python Delaware_County_PA_Probate_Tool_V3.py --headless
-          
-      - name: Commit and Push Results
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add *.xlsx
-          git commit -m "Auto-update: Latest Probate Records" || exit 0
-          git push origin main
