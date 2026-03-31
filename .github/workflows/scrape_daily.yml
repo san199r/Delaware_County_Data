@@ -31,6 +31,10 @@ jobs:
           pip install selenium webdriver-manager openpyxl tk
 
       - name: Run Scraper
+        env:
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: |
           python Delaware_County_PA_Probate_Tool_V3.py --headless
           

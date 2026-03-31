@@ -8,9 +8,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from openpyxl import Workbook, load_workbook
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+import datetime
 import os
 import re
-import datetime
 
 import sys
 import argparse
@@ -24,6 +29,44 @@ if sys.stdout.encoding != 'utf-8':
 parser = argparse.ArgumentParser()
 parser.add_argument("--headless", action="store_true", help="Run in headless mode")
 args, unknown = parser.parse_known_args()
+
+def send_email(file_path):
+    sender_email = os.environ.get('SENDER_EMAIL')
+    receiver_email = os.environ.get('RECEIVER_EMAIL')
+    password = os.environ.get('EMAIL_PASSWORD') # App Password for Gmail
+    
+    if not (sender_email and receiver_email and password):
+        print("[Log] Email credentials missing. Skipping email send.")
+        return
+
+    print(f"Sending email to {receiver_email}...")
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = receiver_email
+        msg['Subject'] = f"Delaware County Probate Scraper Output - {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}"
+        
+        body = "Automated scrape completed. Please find the attached probate records export file."
+        msg.attach(MIMEText(body, 'plain'))
+        
+        # Attachment
+        file_basename = os.path.basename(file_path)
+        with open(file_path, "rb") as attachment:
+            part = MIMEBase('application', 'octet-stream')
+            part.set_payload(attachment.read())
+            encoders.encode_base64(part)
+            part.add_header('Content-Disposition', f"attachment; filename= {file_basename}")
+            msg.attach(part)
+        
+        # SMTP Session (using Gmail's server as default)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(sender_email, password)
+        server.send_message(msg)
+        server.quit()
+        print("Email sent successfully!")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
 
 # === Setup driver ===
 chrome_options = webdriver.ChromeOptions()
@@ -467,3 +510,6 @@ for page in range(resume_page, total_pages + 1):
 # === Done ===
 driver.quit()
 print("Data scraping complete. Process finished automatically.")
+
+# Send email after scraping
+send_email(file_name)
