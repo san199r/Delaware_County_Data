@@ -256,7 +256,9 @@ else:
 print(f"Total records: {total_records}, Per page: {per_page}")
 
 # === Excel setup ===
-file_name = "Delaware_County_PA_Probate_Tool_Output.xlsx"
+now_ts = datetime.datetime.now().strftime("%Y%m%d_%H%M")
+file_name = f"Delaware_County_PA_Probate_Tool_Output_{now_ts}.xlsx"
+print(f"File created: {file_name}")
 if os.path.exists(file_name):
     wb = load_workbook(file_name)
     ws = wb.active
