@@ -14,6 +14,11 @@ import datetime
 
 import sys
 import argparse
+import io
+
+# === Fix for Windows CPU-1252 character encoding issues (GitHub Actions) ===
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 # === Parse arguments for Headless execution (GitHub Actions) ===
 parser = argparse.ArgumentParser()
@@ -320,7 +325,7 @@ def go_to_page(page_num):
     )
 
     actual = driver.find_element(By.ID, "navDisplay").text
-    print(f"✅ Now on page {page_num}: {actual}")
+    print(f"[OK] Now on page {page_num}: {actual}")
 
 # === Navigate to correct page if resuming ===
 if resume_page > 1:
@@ -444,9 +449,9 @@ for page in range(resume_page, total_pages + 1):
             try:
                 back_btn = driver.find_element(By.XPATH, '//*[@id="btntable"]/tbody/tr/td[2]/a')
                 back_btn.click()
-                print("✅ Returned to main result table")
+                print("Returned to main result table")
             except:
-                print("⚠️ Could not find 'Back' button")
+                print("[Warning] Could not find 'Back' button")
             time.sleep(3)
             driver.switch_to.default_content()
             driver.switch_to.frame(driver.find_element(By.XPATH, '//*[@id="corediv"]/iframe'))
