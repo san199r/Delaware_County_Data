@@ -1,0 +1,117 @@
+<html lang="en"><head>
+    <base href="https://delcorowonlineservices.co.delaware.pa.us/countyweb/disclaimer.jsp"><title>welcome.jsp</title>
+
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+
+	<link rel="stylesheet" type="text/css" href="/countyweb/styles/styles.css?ver=1">
+	<link rel="stylesheet" type="text/css" href="/countyweb/styles/DelawarePA/countystyles.css?ver=1">
+<style type="text/css">
+		<!--
+		a:hover { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; color:#903326; text-decoration:underline }
+		all.positions {}
+		#maindiv {position:absolute; left:0; top:50; width:100%; text-align:center;}
+		#maincontent {position:absolute; left:0; top:0; overflow:auto; width:630}
+		-->
+	</style>
+
+	<script src="/countyweb/scripts/utils.js?ver=9"></script>
+	<script src="/countyweb/scripts/validate.js?ver=2"></script>
+	<script src="/countyweb/scripts/dhtml.js?ver=2"></script>
+	<script src="/countyweb/scripts/popup.js?ver=5"></script>
+	<script src="/countyweb/scripts/mousemove.js?ver=2"></script>
+
+	<script>
+
+		function executeCommand (cmd) {
+		
+			parent.forceLogout = false;
+			document.disclaimerform.cmd.value = cmd;
+			document.disclaimerform.submit ();
+		}
+
+		function handleReturn () {
+
+			executeCommand ('Accept');
+			return false;
+		}
+
+		function handleResize () {
+
+		    var     height;
+		    var 	width;
+
+			if (isMozillaClient ()) {
+				height = window.innerHeight;
+				width = window.innerWidth;
+			}
+			else {
+		        height = window.document.body.clientHeight;
+		        width = window.document.body.clientWidth;
+		    }
+
+			document.getElementById ("maincontent").style.height = (height - 50);
+
+			document.getElementById ("maincontent").style.left = (width - 550) / 2 - 30;
+		}
+
+
+		function handleOnload () {
+
+			handleResize ();
+	  		window.focus ();
+		}
+
+		window.onresize=handleResize;
+
+	</script>
+
+  </head>
+
+  <body onload="handleOnload()">
+
+	<div class="positions" id="maindiv">
+		<div class="positions" id="maincontent" style="height: 321px; left: 365.5px;">
+			<form name="disclaimerform" method="post" action="disclaimer.do" target="_parent">
+				<input type="hidden" name="cmd" id="cmd" value="Accept">
+
+<table width="550" cellspacing="0" cellpadding="0" border="0">
+						<tbody><tr class="msg3" style="height:30;text-align:center" valign="top">
+							<td>DelawareRegister of Wills &amp; Clerk of Orphans' Court Online Services Disclaimer</td>
+						</tr>
+					</tbody></table>
+<br>
+
+				<table class="base" width="550" cellpadding="0" cellspacing="0" border="0">
+					<tbody><tr>
+<td width="100%" align="center">
+								&nbsp;&nbsp;&nbsp;
+								<input id="accept" name="accept" type="button" class="base" style="width:75" onclick="executeCommand('Accept')" value="Accept">
+								&nbsp;&nbsp;&nbsp;
+								<input id="decline" name="decline" type="button" class="base" style="width:75" onclick="executeCommand('Decline')" value="Decline">
+								&nbsp;&nbsp;&nbsp;
+							</td>
+</tr>
+				</tbody></table>
+
+<br>
+
+					<table width="550" cellspacing="0" cellpadding="0" border="0">
+						<tbody><tr class="msg5" style="height:30" valign="top">
+							<td>
+								<p style="text-align:justify">The Delaware County Register of Wills is providing the information on this web site as a service to the public. We have made every effort to ensure that the information contained in this electronic search system is accurate. However, the County Register of Wills Office, the County of Delaware, and Kofile Technologies make no representations, warranties (express or implied) or guarantees concerning the suitability, accuracy, authenticity or reliability of the content of this site or at other sites to which we link.</p>
+							</td>
+						</tr>
+					</tbody></table>
+</form>
+
+		</div>
+	</div>
+
+  
+
+  <script>
+  		window.focus ();
+  </script>
+</body></html>

@@ -1,0 +1,9 @@
+Please follow the below steps to navigate to records page:
+
+1. Click here to logout
+2. Login as guest
+3. Accept
+4. Search Public Record
+5. In Case Name Search, Filing Date From: 03/01/2026, To: 03/10/2026
+6. Click search
+7. Tool starts to run
