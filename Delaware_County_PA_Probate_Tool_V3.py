@@ -459,14 +459,4 @@ for page in range(resume_page, total_pages + 1):
 
 # === Done ===
 driver.quit()
-print("Data scraping complete.")
-
-if not (args.headless or os.environ.get('GITHUB_ACTIONS')):
-    # Only show popup if NOT running in CI (GitHub Actions)
-    root = tk.Tk()
-    root.withdraw()
-    root.attributes("-topmost", True)
-    messagebox.showinfo("Done", "Data scraping complete.")
-    root.destroy()
-else:
-    print("Skipping GUI popup in headless/CI mode.")
+print("Data scraping complete. Process finished automatically.")
